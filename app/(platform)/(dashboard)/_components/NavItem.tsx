@@ -12,6 +12,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type Organization = {
   id: string;
@@ -103,4 +104,8 @@ export const NavItem = ({
       </AccordionContent>
     </AccordionItem>
   );
+};
+
+NavItem.Skeleton = function SkeletonNavItem() {
+  return <Skeleton className="h-10 w-full" />;
 };
