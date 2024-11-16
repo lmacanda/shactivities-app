@@ -1,19 +1,12 @@
+import { create } from "@/actions/create-board";
+import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 
-const OrganizationIdPage = () => {
-  async function create(formData: FormData) {
-    "use server";
+const OrganizationIdPage = async () => {
+  const boards = await db.board.findMany();
 
-    const title = formData.get("title") as string;
-
-    await db.board.create({
-      data: {
-        title,
-      },
-    });
-  }
   return (
-    <div>
+    <div className="flex flex-col space-y-4">
       <form action={create}>
         <input
           id="title"
@@ -22,7 +15,15 @@ const OrganizationIdPage = () => {
           placeholder="Enter a title"
           className="border-black border p-1"
         />
+        <Button type="submit" className="mx-1">
+          Create
+        </Button>
       </form>
+      <div className="space-y-2">
+        {boards.map((board) => (
+          <div key={board.id}>Board name: {board.title}</div>
+        ))}
+      </div>
     </div>
   );
 };
